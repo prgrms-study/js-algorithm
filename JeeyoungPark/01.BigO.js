@@ -38,18 +38,18 @@ function sthg4(n) {
     console.log(n);
   }
 }
-// O(nlogn)
+// O(1)
 
 function sthg5(n) {
-  for (let i = 0; i < n; i = i * 2) {
+  for (let i = 1; i < n; i = i * 2) {
     console.log(n);
   }
 }
-// O(nlogn)
+// O(logn)
 
 function sthg6(n) {
   while (true) {
     console.log(n);
   }
 }
-// O(inifite)
+// O(inifity)

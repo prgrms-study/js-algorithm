@@ -52,3 +52,39 @@ console.log(test2.name);
 console.log(test2.age);
 // console.log(test2.getNumber());
 console.log(test2.getNumberAsNumber());
+
+class Animal {
+  #name;
+  #animalType;
+  constructor(name, animalType) {
+    this.#name = name;
+    this.#animalType = animalType;
+  }
+  sayName() {
+    console.log(this.#name);
+  }
+  sayAnimalType() {
+    console.log(this.#animalType);
+  }
+}
+
+class Dog {
+  #animal;
+  constructor(Animal, name) {
+    this.#animal = new Animal(name, "Dog");
+  }
+  sayName() {
+    this.#animal.sayName();
+  }
+  sayAnimalType() {
+    this.#animal.sayAnimalType();
+  }
+}
+
+const myAninal = new Animal("ditto", "pokemon");
+myAninal.sayName();
+myAninal.sayAnimalType();
+
+const myDog = new Dog(Animal, "candy");
+myDog.sayName();
+myDog.sayAnimalType();

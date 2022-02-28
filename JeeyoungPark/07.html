@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <button onclick="myClick()">execute fn1</button>
+    <script>
+      function fn1() {
+        let a = new Array(10000);
+        return a;
+      }
+
+      let res = [];
+
+      function myClick() {
+        res.push(fn1());
+      }
+    </script>
+  </body>
+</html>

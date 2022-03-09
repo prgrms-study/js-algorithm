@@ -1,6 +1,7 @@
 function memory() {
   return [1, 2, 3, 4, 5]; // 5kb
 }
+
 const foo = {
   bar1: memory(), //5kb
   bar2: memory(), //5kb

@@ -18,15 +18,15 @@ const set1 = new Set();
 const set2 = new Set();
 const set3 = new Set();
 set1.add(1);
-set1.add(2);
-set2.add(2);
+set1.add(2); // {1, 2}
+set2.add(2); // {2}
 set3.add(4);
 console.log(intersectSets(set1, set2)); // { 2 }
 
 function isSuperSet(setA, subset) {
-  subset.forEach((el) => {
+  for (el of subset) {
     if (!setA.has(el)) return false;
-  });
+  }
   return true;
 }
 console.log(isSuperSet(set1, set2)); // true;

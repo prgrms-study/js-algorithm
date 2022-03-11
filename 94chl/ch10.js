@@ -65,7 +65,7 @@ function bubbleSort(arr) {
   return arr;
 }
 
-bubbleSort([6, 1, 3, 4, 2, 3, 5]);
+bubbleSort([6, 1, 3, 4, 2, 3, 5, 9, 12, 31, 5, 4, 7, 8, 3, 5, 1]);
 
 function selectionSort(arr) {
   let count = 0;
@@ -86,7 +86,7 @@ function selectionSort(arr) {
   console.log(count);
 }
 
-selectionSort([6, 1, 3, 4, 2, 3, 5]);
+selectionSort([6, 1, 3, 4, 2, 3, 5, 9, 12, 31, 5, 4, 7, 8, 3, 5, 1]);
 
 function insertionSort(arr) {
   let count = 0;
@@ -108,11 +108,11 @@ function insertionSort(arr) {
   console.log(count);
 }
 
-insertionSort([6, 1, 3, 4, 2, 3, 5]);
+insertionSort([6, 1, 3, 4, 2, 3, 5, 9, 12, 31, 5, 4, 7, 8, 3, 5, 1]);
 
 function partition(arr, left, right) {
   const pivot = arr[Math.floor((left + right) / 2)];
-
+  console.log(pivot);
   while (left <= right) {
     while (pivot > arr[left]) {
       left++;
@@ -133,12 +133,11 @@ function partition(arr, left, right) {
 }
 
 function quickSortHelper(arr, left, right) {
-  console.log(JSON.parse(JSON.stringify(arr)));
-  console.log(left, right);
+  console.log(JSON.parse(JSON.stringify(arr)), `${left}, ${right}`);
   if (!arr.length) return arr;
 
   let index = partition(arr, left, right);
-  console.log(`(${left}, ${right}) =  [${index}]${arr[index]}`);
+  console.log(`(${left}, ${right}) =>  ${index}`);
 
   if (left < index - 1) {
     quickSortHelper(arr, left, index - 1);
@@ -157,7 +156,7 @@ function quickSort(arr) {
   return result;
 }
 
-quickSort([6, 1, 3, 4, 2, 3, 5]);
+quickSort([6, 1, 3, 4, 2, 3, 5, 9, 12, 31, 5, 4, 7, 8, 3, 5, 1]);
 
 function merge(leftArr, rightArr) {
   let result = [];
@@ -176,7 +175,7 @@ function merge(leftArr, rightArr) {
   const rightRemains = rightArr.slice(rightIdx);
 
   result = result.concat(leftRemains).concat(rightRemains);
-
+  console.log(leftArr, rightArr, result);
   return result;
 }
 
@@ -186,14 +185,14 @@ function mergeSort(arr) {
   const mid = Math.floor(arr.length / 2);
   const leftArr = arr.slice(0, mid);
   const rightArr = arr.slice(mid);
-  console.log(mid, leftArr, rightArr);
+  console.log(arr, mid, leftArr, rightArr);
   const result = merge(mergeSort(leftArr), mergeSort(rightArr));
 
   console.log(result);
   return result;
 }
 
-mergeSort([6, 1, 3, 4, 2, 3, 5]);
+mergeSort([6, 1, 3, 4, 2, 3, 5, 9, 12, 31, 5, 4, 7, 8, 3, 5, 1]);
 
 function countSort(arr) {
   const hash = {};
@@ -222,7 +221,7 @@ function countSort(arr) {
   return countArr;
 }
 
-countSort([6, 1, 3, 4, 2, 3, 5]);
+countSort([6, 1, 3, 4, 2, 3, 5, 9, 12, 31, 5, 4, 7, 8, 3, 5, 1]);
 
 //
 
@@ -322,24 +321,24 @@ solution4(["123", "1", "123456", "12345", "12", "1234"]);
 
 function solution5(sentence) {
   const wordsArr = sentence.toLowerCase().replace(/[.]/g, "").split(" ");
-  const occurence = {};
+  const hash = {};
   const answer = {};
   console.log(wordsArr);
 
   for (let i = 0; i < wordsArr.length; i++) {
     const currentWord = wordsArr[i];
     console.log(currentWord);
-    if (!occurence[currentWord]) {
-      occurence[currentWord] = 1;
+    if (!hash[currentWord]) {
+      hash[currentWord] = 1;
     } else {
-      occurence[currentWord]++;
+      hash[currentWord]++;
     }
   }
-  console.log(occurence);
+  console.log(hash);
   const arrTemp = [];
 
-  for (let prop in occurence) {
-    arrTemp.push([occurence[prop], prop]);
+  for (let prop in hash) {
+    arrTemp.push([hash[prop], prop]);
   }
   console.log(arrTemp);
   arrTemp.sort((a, b) => b[0] - a[0]);

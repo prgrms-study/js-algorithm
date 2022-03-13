@@ -1,6 +1,6 @@
 // unsorted array
 const unsortedArray = [5, 2, 3, 1, 6, 7, 9, 8, 4];
-console.log("unsortedArray :", unsortedArray);
+// console.log("unsortedArray :", unsortedArray);
 function swap(array, index1, index2) {
   const temp = array[index1];
   array[index1] = array[index2];
@@ -34,6 +34,9 @@ function selectionSort(array) {
   }
 }
 // insertion sort
+[3, 5, 2, 1, 6, 7, 9, 8, 4];
+[2, 5];
+
 function insertionSort(arr) {
   for (let i = 1; i < arr.length; i++) {
     const key = arr[i];
@@ -49,6 +52,7 @@ function insertionSort(arr) {
 }
 
 // quick sort
+[5, 2, 3, 1, 6, 7, 9, 8, 4];
 function quickSort(array, left, right) {
   console.log(array, left, right);
   if (left < right) {
@@ -76,6 +80,6 @@ function quickSelection(array, left, right) {}
 // merge sort
 function mergeSort() {}
 // count sort
-// array.protoType.sort()
 
-console.log("sortedArray : ", unsortedArray);
+quickSort(unsortedArray, 0, unsortedArray.length - 1);
+// console.log("sortedArray : ", unsortedArray);

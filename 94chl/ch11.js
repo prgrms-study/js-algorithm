@@ -23,6 +23,7 @@ LinearHashTable.prototype.put = function (key, value) {
 
   // 선형
   while (this.keys[hashedIndex] !== null) {
+    console.log(key, hashedIndex);
     hashedIndex++;
 
     hashedIndex = hashedIndex % this.size;
@@ -58,7 +59,7 @@ LinearHashTable.prototype.initArray = function (size) {
   return array;
 };
 
-const linearTable = new LinearHashTable(13);
+const linearTable = new LinearHashTable(8);
 
 for (let key in input) {
   linearTable.put(parseInt(key), input[key]);
@@ -83,6 +84,7 @@ SquareHashTable.prototype.put = function (key, value) {
 
   // 이차
   while (this.keys[hashedIndex % this.size] !== null) {
+    console.log(key, hashedIndex);
     hashedIndex += Math.pow(squareIndex, 2);
 
     squareIndex++;
@@ -120,7 +122,7 @@ SquareHashTable.prototype.initArray = function (size) {
   return array;
 };
 
-const squareTable = new SquareHashTable(13);
+const squareTable = new SquareHashTable(8);
 
 for (let key in input) {
   squareTable.put(parseInt(key), input[key]);
@@ -143,6 +145,7 @@ LinearSquareHashTable.prototype.put = function (key, value) {
 
   // 선형 이중
   while (this.keys[hashedIndex] !== null) {
+    console.log(key, hashedIndex);
     hashedIndex++;
 
     hashedIndex = hashedIndex % this.size;
@@ -174,7 +177,6 @@ LinearSquareHashTable.prototype.hash = function (key) {
 
 LinearSquareHashTable.prototype.secondHash = function (hashedKey) {
   const R = this.size - 2;
-  console.log(R);
   return R - (hashedKey % R);
 };
 
@@ -184,7 +186,7 @@ LinearSquareHashTable.prototype.initArray = function (size) {
   return array;
 };
 
-const linearSquareTable = new LinearSquareHashTable(13);
+const linearSquareTable = new LinearSquareHashTable(8);
 
 for (let key in input) {
   linearSquareTable.put(parseInt(key), input[key]);

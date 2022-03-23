@@ -146,7 +146,6 @@ DoublyLinkedList.prototype.deleteAtTail = function () {
 };
 
 // 검색 스킵
-
 function reverseSingleLinkedList(sll) {
   let node = sll.head;
   let prev = null;

@@ -7,9 +7,11 @@
 interface KeyHashTable {
   [key: number]: LFUNode;
 }
+
 interface FreqHashTable {
   [key: number]: LFUDoublyLinkedList;
 }
+
 class LFUNode {
   prev: LFUNode;
   next: LFUNode;
@@ -43,7 +45,6 @@ class LFUDoublyLinkedList {
     node.prev = this.head;
     this.size++;
   }
-
   removeAtTail() {
     const oldTail = this.tail.prev;
     const prev = this.tail.prev;
@@ -85,6 +86,7 @@ class LFUCache {
   }
   set(key: number, value: string) {
     let node = this.keys[key];
+    // 수정이 아니고 삽입되었을때
     if (node === undefined) {
       node = new LFUNode(key, value);
       this.keys[key] = node;
@@ -138,16 +140,10 @@ const myLFU = new LFUCache(5);
 // myLFU.get(1);
 // myLFU.get(2);
 // myLFU.get(2);
-// console.log("추가 전");
-// for (let i = 1; i <= 5; i++) {
-//   console.log(i, " : ", myLFU.get(i));
-// }
 // myLFU.set(6, "6번 키값의 값");
-// myLFU.get(6);
 // myLFU.set(7, "7번 키값의 값");
-// myLFU.get(7);
 // myLFU.set(8, "8번 키값의 값");
-// myLFU.get(8);
+// // console.log(myLFU.freq);
 // console.log("추가 후");
 // for (let i = 1; i <= 8; i++) {
 //   console.log(i, " : ", myLFU.get(i));
@@ -222,20 +218,19 @@ class LRUCache {
 }
 
 const myLRU = new LRUCache(5);
+myLRU.set(1, "1번 키값의 값");
+myLRU.set(2, "2번 키값의 값");
+myLRU.set(3, "3번 키값의 값");
+myLRU.set(4, "4번 키값의 값");
+myLRU.set(5, "5번 키값의 값");
 
-// myLRU.set(1, "1번 키값의 값");
-// myLRU.set(2, "2번 키값의 값");
-// myLRU.set(3, "3번 키값의 값");
-// myLRU.set(4, "4번 키값의 값");
-// myLRU.set(5, "5번 키값의 값");
+myLRU.get(1);
+myLRU.get(2);
 
-// myLRU.get(1);
-// myLRU.get(2);
+myLRU.set(6, "6번 키값의 값");
+myLRU.set(7, "7번 키값의 값");
+myLRU.set(8, "8번 키값의 값");
 
-// myLRU.set(6, "6번 키값의 값");
-// myLRU.set(7, "7번 키값의 값");
-// myLRU.set(8, "8번 키값의 값");
-
-// for (let i = 1; i <= 8; i++) {
-//   console.log(i, " : ", myLRU.get(i));
-// }
+for (let i = 1; i <= 8; i++) {
+  console.log(i, " : ", myLRU.get(i));
+}

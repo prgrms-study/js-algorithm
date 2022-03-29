@@ -1,6 +1,6 @@
 class TreeNode {
   value: number;
-  children: number[];
+  children: TreeNode[];
   constructor(value: number) {
     this.value = value;
     this.children = [];
@@ -108,7 +108,7 @@ function findMin(root: BinaryTreeNode) {
   }
   return root;
 }
-// const binaryTree = new BinaryTree();
+const binaryTree = new BinaryTree();
 //          1
 //     2         3
 //  4     5    6    7
@@ -179,11 +179,12 @@ class BinarySerchTree {
           root = root.left;
           return root;
         } else {
-          const temp = findMin(root.right);
+          const temp = findMin(root);
+          root.value = temp.value;
           root.right = deleteRecursively(root.right, temp.value);
-          return root;
         }
       }
+      return root;
     }
   }
   search(value: number) {
@@ -201,15 +202,28 @@ class BinarySerchTree {
     }
     return found;
   }
+  traverseBfs() {
+    const queue = [this.root];
+    while (queue.length) {
+      const node = queue.shift();
+      console.log(node.value);
+      node.left && queue.push(node.left);
+      node.right && queue.push(node.right);
+    }
+  }
 }
 
 const binarySerchTree = new BinarySerchTree();
-
-// binarySerchTree.insert(1);
-// binarySerchTree.insert(2);
-// binarySerchTree.insert(5);
-// binarySerchTree.insert(76);
-// binarySerchTree.insert(5);
-// console.log(binarySerchTree.search(2));
-// binarySerchTree.remove(2);
-// console.log(binarySerchTree.search(2));
+//     10
+//   5   15
+// 2   6 13  16
+binarySerchTree.insert(10);
+binarySerchTree.insert(5);
+binarySerchTree.insert(15);
+binarySerchTree.insert(2);
+binarySerchTree.insert(6);
+binarySerchTree.insert(13);
+binarySerchTree.insert(16);
+console.log(binarySerchTree.search(15));
+binarySerchTree.remove(15);
+console.log(binarySerchTree.search(15));

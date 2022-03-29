@@ -140,28 +140,23 @@ class AVLTree {
   }
   traverseByLevel() {
     if (this.root) {
-      const levelTable = {};
+      const levelTable = { "0": [this.root.value] };
       const queue = [{ node: this.root, level: 0 }];
       while (queue.length) {
         let { node: currentNode, level } = queue.shift();
-        levelTable[level] = levelTable[level] || [];
-        levelTable[level].push(currentNode.value);
+        levelTable[level + 1] = levelTable[level + 1] || [];
+        levelTable[level + 1].push(currentNode.left?.value || " ");
+        levelTable[level + 1].push(currentNode.right?.value || " ");
         currentNode.left &&
           queue.push({ node: currentNode.left, level: level + 1 });
         currentNode.right &&
           queue.push({ node: currentNode.right, level: level + 1 });
       }
-      console.log("-----------------------------------");
-      Object.values(levelTable).forEach((arr: number[], index) => {
-        const fullLength = Math.pow(2, index);
-        if (fullLength !== arr.length) {
-          const diff = fullLength - arr.length;
-          const extraArray = new Array(diff).fill(" ");
-          arr = arr.concat(extraArray);
-        }
-        console.log(getSpaceMiddle(30, arr));
+      console.log("------------------------tree-view-------------------------");
+      Object.values(levelTable).forEach((arr: number[]) => {
+        console.log(getSpaceMiddle(50, arr));
       });
-      console.log("-----------------------------------");
+      console.log("----------------------------------------------------------");
     }
   }
   finLowestCommonAncstor(value1: number, value2: number) {
@@ -250,15 +245,11 @@ test.insert(1);
 test.insert(2);
 test.insert(3);
 test.insert(4);
-test.insert(5);
 test.insert(6);
-test.insert(7);
 test.insert(8);
 test.insert(9);
 test.insert(10);
-test.insert(11);
 test.insert(12);
-test.insert(13);
 test.insert(14);
 test.insert(15);
 test.traverseByLevel();

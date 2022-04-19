@@ -198,7 +198,7 @@ console.log(maxHeap.poll());
 console.log(maxHeap.poll());
 
 
-// 힙 정렬 - O(log(n))
+// 힙 정렬 - O(nlog(n))
 // 정렬된 배열을 얻기 위해 힙이 빈 상태가 될 때까지 pop() 호출
 
 // 최소 힙 -> 오름차순 정렬
@@ -219,21 +219,27 @@ class MedianHeap {
         }
 
         //재구성
-        if (1 < this.minHeap.size() - this.maxHeap.size()) {
-            this.maxHeap.add(this.minHeap.poll());
+        if (this.maxHeap.size() + 1 < this.minHeap.size()) {
+            const minimal = this.minHeap.poll();
+
+            this.maxHeap.add(minimal);
         }
 
-        if (1 < this.maxHeap.size() - this.minHeap.size()) {
-            this.minHeap.add(this.maxHeap.poll());
+        if (this.minHeap.size() + 1 < this.maxHeap.size()) {
+            const maximal = this.maxHeap.poll()
+            
+            this.minHeap.add(maximal);
         }
     }
 
     median = () => {
         if (this.minHeap.size === 0 && this.maxHeap.size === 0) {
             return Number.NEGATIVE_INFINITY;
-        } else if (this.minHeap.size() === this.maxHeap.size()) {
+        } else if (this.minHeap.size() === this.maxHeap.size()) { // 요소의 개수가 짝수일 때 -> (최대 + 최소)/2
             return (this.minHeap.peek() + this.maxHeap.peek()) / 2;
-        } else if (this.maxHeap.size() < this.minHeap.size()) {
+        }
+        // 요소의 개수가 홀수 일 때 -> 
+        if (this.maxHeap.size() < this.minHeap.size()) {
             return this.minHeap.peek();
         } else {
             return this.maxHeap.peek();
@@ -261,7 +267,6 @@ const myArray = [12, 3, 13, 4, 2, 40, 23];
 const getKthSmallestElement = (array, k) => {
     const minH = new MinHeap();
 
-    // array.forEach(n => minH.add(n));
     for (let i = 0; i < array.length; i++) {
         minH.add(array[i]);
     }

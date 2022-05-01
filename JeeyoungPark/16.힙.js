@@ -196,3 +196,90 @@ console.log(maxHeap.poll());
 console.log(maxHeap.poll());
 console.log(maxHeap.poll());
 console.log(maxHeap.poll());
+
+
+// 힙 정렬 - O(nlog(n))
+// 정렬된 배열을 얻기 위해 힙이 빈 상태가 될 때까지 pop() 호출
+
+// 최소 힙 -> 오름차순 정렬
+// 최대 힙 -> 내림차순 정렬
+
+
+
+// 중간값 찾기
+class MedianHeap {
+    minHeap = new MinHeap();
+    maxHeap = new MaxHeap();
+
+    add = (value) => {
+        if (this.median() < value) {
+            this.minHeap.add(value);
+        } else {
+            this.maxHeap.add(value);
+        }
+
+        //재구성
+        if (this.maxHeap.size() + 1 < this.minHeap.size()) {
+            const minimal = this.minHeap.poll();
+
+            this.maxHeap.add(minimal);
+        }
+
+        if (this.minHeap.size() + 1 < this.maxHeap.size()) {
+            const maximal = this.maxHeap.poll()
+            
+            this.minHeap.add(maximal);
+        }
+    }
+
+    median = () => {
+        if (this.minHeap.size === 0 && this.maxHeap.size === 0) {
+            return Number.NEGATIVE_INFINITY;
+        } else if (this.minHeap.size() === this.maxHeap.size()) { // 요소의 개수가 짝수일 때 -> (최대 + 최소)/2
+            return (this.minHeap.peek() + this.maxHeap.peek()) / 2;
+        }
+        // 요소의 개수가 홀수 일 때 -> 
+        if (this.maxHeap.size() < this.minHeap.size()) {
+            return this.minHeap.peek();
+        } else {
+            return this.maxHeap.peek();
+        }
+    }
+}
+
+const median = new MedianHeap();
+
+median.add(12);
+console.log('-------median: ', median.median());
+median.add(2);
+console.log('-------median: ', median.median());
+median.add(23);
+console.log('-------median: ', median.median());
+median.add(13);
+console.log('-------median: ', median.median());
+
+
+
+// 배열에서 k번째로 작은 값 찾기 -> 배열을 정렬한 후 k번째 값 찾기 -> 최소힙
+// 배열에서 k번째로 큰 값 찾기 -> 배열을 정렬한 후 k번째 값 찾기 -> 최대힙
+const myArray = [12, 3, 13, 4, 2, 40, 23];
+
+const getKthSmallestElement = (array, k) => {
+    const minH = new MinHeap();
+
+    for (let i = 0; i < array.length; i++) {
+        minH.add(array[i]);
+    }
+
+    for (let i = 1; i < k; i++) {
+        minH.poll();
+    }
+
+    return minH.poll();
+}
+
+console.log("++++++++++++++++++" + getKthSmallestElement(myArray, 1));
+console.log("++++++++++++++++++" + getKthSmallestElement(myArray, 2));
+console.log("++++++++++++++++++" + getKthSmallestElement(myArray, 7));
+
+

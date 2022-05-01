@@ -10,6 +10,8 @@ class AVLNode {
     this.depth = 0;
   }
   insert(value: number, node: AVLNode) {
+    // node : 1,
+    // value : 2
     if (node === null) {
       return new AVLNode(value);
     }
@@ -21,11 +23,23 @@ class AVLNode {
     node.depth =
       Math.max(AVLTree.getDepth(node.left), AVLTree.getDepth(node.right)) + 1;
     if (AVLTree.getBalance(node) === 2 && AVLTree.getBalance(node.left) >= 0) {
+      //     x
+      //   y
+      // z
+      //
+      //   y
+      // z   x
       return AVLTree.rightRotate(node);
     } else if (
       AVLTree.getBalance(node) === 2 &&
       AVLTree.getBalance(node.left) < 0
     ) {
+      //     x
+      //   y
+      //     z
+      //     x
+      //   z
+      // y
       node.left = AVLTree.leftRotate(node.left);
       return AVLTree.rightRotate(node);
     } else if (
@@ -111,6 +125,11 @@ class AVLTree {
     y.depth = Math.max(this.getDepth(y.left), this.getDepth(y.right)) + 1;
     return y;
   }
+  //      x
+  //    y
+  //  z
+  //    y
+  //  z   x
   static rightRotate(x: AVLNode) {
     const y = x.left;
     const yRightChild = y.right;
@@ -126,6 +145,9 @@ class AVLTree {
     }
     return node.value;
   }
+  //  x
+  //     3
+  //  z    2
   insert(value: number) {
     if (this.root) {
       this.root = this.root.insert(value, this.root);
@@ -140,23 +162,23 @@ class AVLTree {
   }
   traverseByLevel() {
     if (this.root) {
-      const levelTable = { "0": [this.root.value] };
+      const levelTable = { '0': [this.root.value] };
       const queue = [{ node: this.root, level: 0 }];
       while (queue.length) {
         let { node: currentNode, level } = queue.shift();
         levelTable[level + 1] = levelTable[level + 1] || [];
-        levelTable[level + 1].push(currentNode.left?.value || " ");
-        levelTable[level + 1].push(currentNode.right?.value || " ");
+        levelTable[level + 1].push(currentNode.left?.value || ' ');
+        levelTable[level + 1].push(currentNode.right?.value || ' ');
         currentNode.left &&
           queue.push({ node: currentNode.left, level: level + 1 });
         currentNode.right &&
           queue.push({ node: currentNode.right, level: level + 1 });
       }
-      console.log("------------------------tree-view-------------------------");
+      console.log('------------------------tree-view-------------------------');
       Object.values(levelTable).forEach((arr: number[]) => {
         console.log(getSpaceMiddle(50, arr));
       });
-      console.log("----------------------------------------------------------");
+      console.log('----------------------------------------------------------');
     }
   }
   finLowestCommonAncstor(value1: number, value2: number) {
@@ -189,19 +211,18 @@ class AVLTree {
   }
   checkIfSubTrees(root: AVLNode, subTree: AVLNode) {
     const queue = [root];
-    let counter = 0;
     while (queue.length) {
       const currentNode = queue.shift();
       if (
         (currentNode.value = subTree.value && isSameTree(currentNode, subTree))
       ) {
-        console.log("맞음");
+        console.log('맞음');
         return true;
       }
       currentNode.left && queue.push(currentNode.left);
       currentNode.right && queue.push(currentNode.right);
     }
-    console.log("아님");
+    console.log('아님');
     return false;
   }
   isMirrorTree(root1: AVLNode, root2: AVLNode) {
@@ -232,12 +253,12 @@ function isSameTree(root1: AVLNode, root2: AVLNode) {
   );
 }
 function getSpaceMiddle(space: number, valueList: number[]) {
-  const emptyStringArray = new Array(space).fill(" ");
+  const emptyStringArray = new Array(space).fill(' ');
   const distance = Math.floor(space / (valueList.length + 1));
   valueList.forEach((value, index) => {
     emptyStringArray.splice((index + 1) * distance, 1, value);
   });
-  return emptyStringArray.join("");
+  return emptyStringArray.join('');
 }
 
 const test = new AVLTree();
@@ -248,13 +269,4 @@ test.insert(4);
 test.insert(6);
 test.insert(8);
 test.insert(9);
-test.insert(10);
-test.insert(12);
-test.insert(14);
-test.insert(15);
 test.traverseByLevel();
-// test.checkIfSubTrees(test.root, test.root.left.right);
-// test.checkIfSubTrees(test.root.left, test.root.left.right);
-// test.checkIfSubTrees(test.root.right, test.root.left);
-// test.findNodeKthLevels(test.root.left, 2);
-// test.finLowestCommonAncstor(9, 11);

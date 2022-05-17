@@ -8,12 +8,12 @@ class TrieNode {
     this.endOfWord = false;
   }
 }
-
 class Trie {
   root: TrieNode;
   constructor() {
     this.root = new TrieNode();
   }
+  hello;
   insert(word: string) {
     let currentNode = this.root;
     word.split('').forEach((char: string) => {
@@ -46,6 +46,7 @@ class Trie {
   delete(word: string) {
     this.deleteRecursively(this.root, word, 0);
   }
+
   deleteRecursively(currentNode: TrieNode, word: string, index: number) {
     if (index === word.length) {
       if (!currentNode.endOfWord) {
@@ -72,26 +73,19 @@ class Trie {
   }
 }
 
-// this.deleteRecur(e,"sammie",6)
-// this.deleteRecur(i,"sammie",5)
-// this.deleteRecur(m,"sammie",4)
-// this.deleteRecur(m,"sammie",3)
-// this.deleteRecur(a,"sammie",2)
-// this.deleteRecur(s,"sammie",1)
-// this.deleteRecur(this.root,"sammie",0)
-// this.delete('sammie);
 const trie = new Trie();
-// trie.insert('sammie');
-// trie.insert('simran');
-// trie.insert('sam');
-// trie.delete('sam');
-// console.log(trie.search('simran'));
-// trie.delete('sammie');
+trie.insert('sammie');
+console.log(trie.search('simran'));
+trie.delete('simran');
 // console.log(trie.search('sammie'));
-// console.log(trie.search('simran'));
+console.log(trie.search('simran'));
 
 function buildBadMatchTable(str: string) {
-  const tableObj = {};
+  const tableObj = {
+    a: 2,
+    d: 3,
+    t: 1,
+  };
   const strLength = str.length;
   tableObj[str[strLength - 1]] = strLength;
   str.split('').forEach((char: string, index: number) => {
@@ -101,6 +95,23 @@ function buildBadMatchTable(str: string) {
   return tableObj;
 }
 
+// djdata
+// data
+d: 3;
+a: 2;
+t: 1;
+// qwddata
+// data
+// {
+  d : 3,
+  a : 2,
+  t : 1
+}
+// pattenrLastIndex = 3
+// maxOffset = 3
+// offset = 3;
+// scanIndex = 1;
+
 function boyerMoore(str: string, pattern: string) {
   const badMatchTable = buildBadMatchTable(pattern);
   const patternLastIndex = pattern.length - 1;
@@ -108,13 +119,14 @@ function boyerMoore(str: string, pattern: string) {
   let offset = 0;
   while (offset <= maxOffset) {
     let scanIndex = 0;
-    while (pattern[scanIndex] === str[scanIndex + offset]) {
+    while (pattern[scanIndex] === str[scanIndex + offset] ) {
       if (scanIndex === patternLastIndex) {
         return offset;
       }
       scanIndex++;
     }
     const badMatchString = str[offset + patternLastIndex];
+    d
     if (badMatchTable[badMatchString]) {
       offset += badMatchTable[badMatchString];
     } else {
